@@ -1,13 +1,9 @@
-import sys
 import json
 import os
 import re
-import random
 
 
-def get_config():
-    # 获取屏幕大小
-    size = os.popen("adb shell wm size").read()
+def get_config(size):
     m = re.search(r'(\d+)x(\d+)', size)
     if m:
         screen_size = "{height}x{width}".format(height=m.group(2), width=m.group(1))
