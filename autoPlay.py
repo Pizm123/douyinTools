@@ -60,7 +60,7 @@ class Video:
 
 # 生成视频对象
 def build_video(device):
-    for i in range(100):
+    for i in range(200):
         video = Video(device)
         if video.check_video():
             # 完播

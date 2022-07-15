@@ -49,7 +49,7 @@ class AdbCommon:
 class AdbDevice:
     def __init__(self, serial_num):
         # 命令间隔时间
-        self.sleepTime = 0.9 + random.random() * 0.2
+        self.sleepTime = 0.1 + random.random() * 0.2
         # 设备序列号
         self.serialNum = serial_num
         # 设备分辨率配置
