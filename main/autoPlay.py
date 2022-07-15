@@ -25,7 +25,7 @@ class Video:
     # 检查视频是否可操作
     def check_video(self):
         adb_common.call(self.device, 'screen')
-        res = ocr_tools.ocr_fun(self.device.serialNum + "_temp.jpg")
+        res = ocr_tools.ocr_fun("temp/"+ self.device.serialNum + "_temp.jpg")
         res = ocr_tools.video_image_ocr_result_analyse(res)
         return ocr_tools.is_conform_rules(res)
 
@@ -77,7 +77,6 @@ if __name__ == '__main__':
     adb_common.foreach_call('update_input', "com.android.adbkeyboard/.AdbIME")
     # 遍历设备
     for device in adb_common.adb_devices:
-        # build_video(device)
         pool.submit(build_video, device)
 
     # 切换普通输入法

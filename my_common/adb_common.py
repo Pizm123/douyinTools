@@ -49,7 +49,7 @@ class AdbCommon:
 class AdbDevice:
     def __init__(self, serial_num):
         # 命令间隔时间
-        self.sleepTime = 0.1 + random.random() * 0.2
+        self.sleepTime = 0.9 + random.random() * 0.2
         # 设备序列号
         self.serialNum = serial_num
         # 设备分辨率配置
@@ -103,5 +103,5 @@ class AdbDevice:
 
     # 截取手机屏幕
     def screen(self):
-        self.cmd("exec-out screencap -p > " + self.serialNum + "_temp.jpg")
+        self.cmd("exec-out screencap -p > temp/" + self.serialNum + "_temp.jpg")
         time.sleep(self.sleepTime)

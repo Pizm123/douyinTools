@@ -50,5 +50,14 @@
     "x2": "550",
     "y2": "550",
     "time": "200"
+  },
+
+    "broadcast_input_point": {
+    "x": "168",
+    "y": "1840"
+  },
+  "broadcast_send_button_point": {
+    "x": "1145",
+    "y": "1835"
   }
 }
