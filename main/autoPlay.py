@@ -63,9 +63,15 @@ class Video:
         adb_common.call(self.device, 'slide', "video_slide_point")
 
 
+flag = {"isStop": False}
+
+
 # 生成视频对象
 def build_video(device):
     for i in range(200):
+        if flag['isStop']:
+            print("停止任务")
+            break
         video = Video(device)
         if video.check_video():
             # 完播
@@ -77,7 +83,9 @@ def build_video(device):
         video.next_video()
 
 
-if __name__ == '__main__':
+# 刷视频开始
+def start():
+    flag['isStop'] = False
     # 切换adb输入法
     adb_common.foreach_call('update_input', "com.android.adbkeyboard/.AdbIME")
     # 遍历设备
@@ -86,6 +94,15 @@ if __name__ == '__main__':
 
     # 切换普通输入法
     # adb_common.foreach_call('update_input', "com.sohu.inputmethod.sogou.xiaomi/.SogouIME")
+
+
+# 停止刷视频
+def stop():
+    flag['isStop'] = True
+
+
+if __name__ == '__main__':
+    start()
 
 # # 主页关注功能
 # def attention(sleep_time_r):

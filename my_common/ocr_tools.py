@@ -7,9 +7,12 @@ base_config = config.get_base_config()
 
 # 图片文字识别
 def ocr_fun(img_path):
-    ocr = PaddleOCR(use_angle_cls=True, lang="ch")
-    result = ocr.ocr(img_path, cls=True)
-    return result
+    try:
+        ocr = PaddleOCR(use_angle_cls=True, lang="ch")
+        result = ocr.ocr(img_path, cls=True)
+        return result
+    except Exception as e:
+        print(e)
 
 
 # 首页推荐截图结果过滤
