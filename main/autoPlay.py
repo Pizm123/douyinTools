@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 # 自动刷推荐视频 完播点赞评论
+import sys
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
 import time
 import random
 from my_common import config
@@ -25,7 +30,7 @@ class Video:
     # 检查视频是否可操作
     def check_video(self):
         adb_common.call(self.device, 'screen')
-        res = ocr_tools.ocr_fun("temp/"+ self.device.serialNum + "_temp.jpg")
+        res = ocr_tools.ocr_fun("temp/" + self.device.serialNum + "_temp.jpg")
         res = ocr_tools.video_image_ocr_result_analyse(res)
         return ocr_tools.is_conform_rules(res)
 
