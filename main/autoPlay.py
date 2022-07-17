@@ -84,7 +84,8 @@ def build_video(device):
 
 
 # 刷视频开始
-def start():
+def start(*params):
+    print(params)
     flag['isStop'] = False
     # 切换adb输入法
     adb_common.foreach_call('update_input', "com.android.adbkeyboard/.AdbIME")
@@ -103,19 +104,3 @@ def stop():
 
 if __name__ == '__main__':
     start()
-
-# # 主页关注功能
-# def attention(sleep_time_r):
-#     # 点击头像位置 进入主页
-#     adb_common.click(conf['head_point']['x'], conf['head_point']['y'], sleep_time_r)
-#
-#     # 点击主页关注按钮（关注按钮位置浮动，多次点击）
-#     adb_common.click(conf['home_attention_point']['x'], conf['home_attention_point']['y'], sleep_time_r)
-#     adb_common.click(conf['home_attention_point']['x'], conf['home_attention_point']['y1'], sleep_time_r)
-#
-#     # 点击主页空白位置
-#     adb_common.click(conf['home_blank_point']['x'], conf['home_blank_point']['y'], sleep_time_r)
-#
-#     # 返回
-#     adb_common.goback(sleep_time_r)
-#     adb_common.goback(sleep_time_r)
