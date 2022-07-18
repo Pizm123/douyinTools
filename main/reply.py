@@ -6,6 +6,7 @@ from my_common import ocr_tools
 from concurrent.futures import ThreadPoolExecutor
 from my_common import config
 import random
+from main import autoPlay
 
 base_config = config.get_base_config()
 msgs = base_config['reply_message']
@@ -38,22 +39,33 @@ class VisitorList:
         x = str(self.point[0]).replace('.0', '')
         y = str(self.point[1]).replace('.0', '')
         # 点击回复按钮
-        adb_common.call(self.device, "click_point", x, y)
-        # 输入回复信息
-        msg = msgs[random.randint(0, len(msgs) - 1)]
-        adb_common.call(self.device, 'send_adb_message', msg)
-        time.sleep(1)
-        # 点击发送按钮
-        adb_common.call(self.device, 'click', 'send_button_point')
+        # adb_common.call(self.device, "click_point", x, y)
+        # # 输入回复信息
+        # msg = msgs[random.randint(0, len(msgs) - 1)]
+        # adb_common.call(self.device, 'send_adb_message', msg)
+        # time.sleep(1)
+        # # 点击发送按钮
+        # adb_common.call(self.device, 'click', 'send_button_point')
         # 翻页
         adb_common.call(self.device, 'slide_by_point', "comments_next_page", x, y)
 
     # 回访评论区用户
     def follow_up(self):
         # 点击头像位置
-        adb_common.call(self.device, 'click', 'send_button_point')
+        adb_common.call(self.device, 'click', 'comments_head_point')
+        time.sleep(3)
         # 点击主页第一个视频
+        adb_common.call(self.device, 'click', 'user_home_first_video')
+        time.sleep(1)
         # 完播点赞评论
+        video = autoPlay.Video(self.device)
+        # 点赞
+        video.give_a_like()
+        # 评论
+        video.comment()
+        # 返回两次
+        adb_common.call(self.device, 'go_back')
+        adb_common.call(self.device, 'go_back')
 
 
 # 评论区回复
@@ -65,6 +77,7 @@ def comments_reply(device):
         visitor.get_reply_point()
         if not visitor.point:
             break
+        visitor.follow_up()
         # 回复消息
         visitor.reply_message()
         time.sleep(1)

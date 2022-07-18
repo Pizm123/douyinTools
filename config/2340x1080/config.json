@@ -63,5 +63,13 @@
   "comments_next_page": {
     "y2": "800",
     "time": "1000"
+  },
+  "comments_head_point": {
+    "x": "88",
+    "y": "1037"
+  },
+  "user_home_first_video": {
+    "x": "175",
+    "y": "1750"
   }
 }

@@ -19,7 +19,7 @@ randomTime = 3
 # adb管理对象
 adb_common = adb_common.AdbCommon(0.9)
 # 线程池
-pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix='测试线程')
+pool = ThreadPoolExecutor(max_workers=5, thread_name_prefix='测试线程')
 
 
 # 短视频对象
