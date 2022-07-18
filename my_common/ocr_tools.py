@@ -60,7 +60,7 @@ def is_conform_rules(res):
 def is_exists_white_list(content):
     white_list = base_config['white_list']
     for s in white_list:
-        if s.find(content) != -1 or content.find(s) != -1:
+        if content.find(s) != -1:
             return True
     return False
 
@@ -69,6 +69,6 @@ def is_exists_white_list(content):
 def is_exists_blacklist(content):
     blacklist = base_config['blacklist']
     for s in blacklist:
-        if s.find(content) != -1 or content.find(s) != -1:
+        if content.find(s) != -1:
             return True
     return False

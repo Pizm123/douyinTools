@@ -1,0 +1,63 @@
+{
+  "user_point": {
+    "x": "305",
+    "y": "730"
+  },
+  "attention_point": {
+    "x": "480",
+    "y": "898"
+  },
+  "blank_point": {
+    "x": "560",
+    "y": "1033"
+  },
+  "slide_point": {
+    "x1": "350",
+    "y1": "900",
+    "x2": "350",
+    "y2": "760",
+    "time": "500"
+  },
+  "head_point": {
+    "x": "1000",
+    "y": "1130"
+  },
+  "home_attention_point": {
+    "x": "430",
+    "y": "1125",
+    "y1": "1310",
+    "y2": "1380"
+  },
+  "home_blank_point": {
+    "x": "780",
+    "y": "1000"
+  },
+  "comment_button_point": {
+    "x": "1132",
+    "y": "1295"
+  },
+  "input_point": {
+    "x": "500",
+    "y": "1870"
+  },
+  "send_button_point": {
+    "x": "1156",
+    "y": "1800"
+  },
+  "video_slide_point": {
+    "x1": "550",
+    "y1": "1550",
+    "x2": "550",
+    "y2": "550",
+    "time": "200"
+  },
+
+    "broadcast_input_point": {
+    "x": "168",
+    "y": "1316"
+  },
+  "broadcast_send_button_point": {
+    "x": "683",
+    "y": "1271"
+  }
+}
