@@ -59,5 +59,9 @@
   "broadcast_send_button_point": {
     "x": "1014",
     "y": "2238"
+  },
+  "comments_next_page": {
+    "y2": "700",
+    "time": "1000"
   }
 }

@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 from my_common import adb_common
 
-adb_common = adb_common.AdbCommon()
+adb_common = adb_common.AdbCommon(0.1)
 
 for i in range(200):
     # 点击观众

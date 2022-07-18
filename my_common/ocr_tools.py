@@ -72,3 +72,22 @@ def is_exists_blacklist(content):
         if content.find(s) != -1:
             return True
     return False
+
+
+# 获取文字位置:第一次出现的位置
+def get_point_by_text(result, text):
+    s1 = str(result)
+    print(s1)
+    if "暂时没有更多了" in s1:
+        return False
+    # 遍历结果数组
+    for line in result:
+        # 文字坐标
+        point = line[0]
+        # 文字坐标点
+        left_top = point[0]
+        # 文字内容
+        content = line[1][0]
+        if content == text:
+            print(left_top)
+            return left_top

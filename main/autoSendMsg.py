@@ -8,7 +8,7 @@ sys.path.append(BASE_DIR)
 from my_common import adb_common, config
 import random
 
-adb_common = adb_common.AdbCommon()
+adb_common = adb_common.AdbCommon(0.9)
 base_config = config.get_base_config()
 msgs = base_config['broadcast_room_msg']
 
