@@ -113,4 +113,4 @@ def stop():
 
 
 if __name__ == '__main__':
-    start()
+    start({"cycle_index": 100, "a_play_time": 2, "is_use_ocr": 1, "black_list": None, "white_list": None})

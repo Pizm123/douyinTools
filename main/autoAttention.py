@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 from my_common import adb_common
 
-adb_common = adb_common.AdbCommon(0.4)
+adb_common = adb_common.AdbCommon(1)
 
 flag = {'isStop': False}
 
@@ -37,3 +37,7 @@ def start(*params):
 # 停止关注
 def stop():
     flag['isStop'] = True
+
+
+if __name__ == '__main__':
+    start({"cycle_index": 200})
