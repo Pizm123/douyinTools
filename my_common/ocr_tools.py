@@ -5,6 +5,18 @@ from my_common import config
 base_config = config.get_base_config()
 
 
+# 设置黑白名单信息
+def set_black_list(black_list):
+    base_config['blacklist'] = str.split(black_list, ',')
+    # 是否更新到配置文件
+
+
+# 设置白名单信息
+def set_white_list(white_list):
+    base_config['white_list'] = str.split(white_list, ',')
+    # 是否更新到配置文件
+
+
 # 图片文字识别
 def ocr_fun(img_path):
     try:

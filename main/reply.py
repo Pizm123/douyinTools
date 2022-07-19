@@ -13,7 +13,7 @@ msgs = base_config['reply_message']
 # adb管理对象
 adb_common = adb_common.AdbCommon(0.9)
 # 线程池
-pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix='测试线程')
+pool = ThreadPoolExecutor(max_workers=5, thread_name_prefix='测试线程')
 
 
 # 访客类
@@ -39,13 +39,13 @@ class VisitorList:
         x = str(self.point[0]).replace('.0', '')
         y = str(self.point[1]).replace('.0', '')
         # 点击回复按钮
-        # adb_common.call(self.device, "click_point", x, y)
-        # # 输入回复信息
-        # msg = msgs[random.randint(0, len(msgs) - 1)]
-        # adb_common.call(self.device, 'send_adb_message', msg)
-        # time.sleep(1)
-        # # 点击发送按钮
-        # adb_common.call(self.device, 'click', 'send_button_point')
+        adb_common.call(self.device, "click_point", x, y)
+        # 输入回复信息
+        msg = msgs[random.randint(0, len(msgs) - 1)]
+        adb_common.call(self.device, 'send_adb_message', msg)
+        time.sleep(1)
+        # 点击发送按钮
+        adb_common.call(self.device, 'click', 'send_button_point')
         # 翻页
         adb_common.call(self.device, 'slide_by_point', "comments_next_page", x, y)
 
@@ -69,15 +69,18 @@ class VisitorList:
 
 
 # 评论区回复
-def comments_reply(device):
-    for i in range(200):
+def comments_reply(device, params):
+    for i in range(int(params['cycle_index'])):
+        if flag['isStop']:
+            break
         # 访问者列表对象
         visitor = VisitorList(device)
         # 获取回复按钮位置
         visitor.get_reply_point()
         if not visitor.point:
             break
-        visitor.follow_up()
+        # # 回访 TODO
+        # visitor.follow_up()
         # 回复消息
         visitor.reply_message()
         time.sleep(1)
@@ -87,14 +90,18 @@ flag = {"isStop": False}
 
 
 # 开始回复
-def start():
+def start(*params):
     flag['isStop'] = False
     # 切换adb输入法
     adb_common.foreach_call('update_input', "com.android.adbkeyboard/.AdbIME")
     # 遍历设备
     for device in adb_common.adb_devices:
-        pool.submit(comments_reply, device)
+        pool.submit(comments_reply, device, *params)
 
 
-if __name__ == '__main__':
-    start()
+# 停止回复
+def stop():
+    flag['isStop'] = True
+
+# if __name__ == '__main__':
+#     start()

@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 import tkinter as tk
 from tkinter import *
-import tkinter.messagebox as mb
 from functools import partial
-from main import autoPlay
+from main import autoPlay, autoAttention, reply
 
 
 # 初始化主窗体
@@ -122,23 +121,60 @@ class AutoPlay(tk.Frame):
 
 class Page2(tk.Frame):
     def __init__(self, parent=None):
+        # 循环次数
+        self.cycle_index = tk.StringVar()
         super().__init__(parent)
         self.pack(expand=1, fill="both")
-        # 新建文本标签
-        labe1 = tk.Label(self, text="账号：")
-        # grid()控件布局管理器，以行、列的形式对控件进行布局，后续会做详细介绍
-        labe1.grid(row=0)
-        # 为上面的文本标签，创建两个输入框控件
-        entry1 = tk.Entry(self)
-        # 对控件进行布局管理，放在文本标签的后面
-        entry1.grid(row=0, column=1)
+        tk.Label(self, text="循环次数：").place(x=50, y=60, height=30)
+        tk.Entry(self, textvariable=self.cycle_index).place(x=180, y=60, height=30)
+        tk.Label(self, text="次").place(x=330, y=60, height=30)
+
+        # 开始按钮
+        but = tk.Button(self, text="开始", command=partial(self.start), width=20)
+        but.place(x=50, y=340, height=30)
+
+        # 停止按钮
+        but = tk.Button(self, text="停止", command=partial(self.stop), width=20)
+        but.place(x=200, y=340, height=30)
+
+    # 开始关注
+    def start(self):
+        params = {"cycle_index": self.cycle_index.get()}
+        print("开始关注")
+        autoAttention.start(params)
+
+    # 停止关注
+    def stop(self):
+        print("停止")
+        autoAttention.stop()
 
 
 class Page3(tk.Frame):
     def __init__(self, parent=None):
+        # 循环次数
+        self.cycle_index = tk.StringVar()
         super().__init__(parent)
         self.pack(expand=1, fill="both")
-        tk.Label(self, text="我是page3").pack()
+        tk.Label(self, text="循环次数：").place(x=50, y=60, height=30)
+        tk.Entry(self, textvariable=self.cycle_index).place(x=180, y=60, height=30)
+        tk.Label(self, text="次").place(x=330, y=60, height=30)
+
+        # 开始按钮
+        but = tk.Button(self, text="开始", command=partial(self.start), width=20)
+        but.place(x=50, y=340, height=30)
+
+        # 停止按钮
+        but = tk.Button(self, text="停止", command=partial(self.stop), width=20)
+        but.place(x=200, y=340, height=30)
+
+    # 开始回复
+    def start(self):
+        params = {"cycle_index": self.cycle_index.get()}
+        reply.start(params)
+
+    # 停止回复
+    def stop(self):
+        reply.stop()
 
 
 if __name__ == "__main__":

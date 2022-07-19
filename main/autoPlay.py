@@ -28,15 +28,19 @@ class Video:
         self.device = device
 
     # 检查视频是否可操作
-    def check_video(self):
+    def check_video(self, black_list, white_list):
         adb_common.call(self.device, 'screen')
         res = ocr_tools.ocr_fun("temp/" + self.device.serialNum + "_temp.jpg")
         res = ocr_tools.video_image_ocr_result_analyse(res)
+        if black_list is not None:
+            ocr_tools.set_black_list(black_list)
+        if white_list is not None:
+            ocr_tools.set_white_list(white_list)
         return ocr_tools.is_conform_rules(res)
 
     # 完播
-    def play_over(self):
-        time.sleep(playTime + random.random() * randomTime)
+    def play_over(self, play_time):
+        time.sleep(play_time + random.random() * randomTime)
 
     # 点赞功能
     def give_a_like(self):
@@ -67,20 +71,26 @@ flag = {"isStop": False}
 
 
 # 生成视频对象
-def build_video(device):
-    for i in range(200):
-        if flag['isStop']:
-            print("停止任务")
-            break
-        video = Video(device)
-        if video.check_video():
-            # 完播
-            # video.play_over()
-            # 点赞
-            video.give_a_like()
-            # 评论
-            video.comment()
-        video.next_video()
+def build_video(device, params):
+    print(params)
+    try:
+        for i in range(int(params['cycle_index'])):
+            if flag['isStop']:
+                print("停止任务")
+                break
+            video = Video(device)
+            if params['is_use_ocr'] == 2 or \
+                    (params['is_use_ocr'] == 1 and video.check_video(params['black_list'], params['white_list'])):
+                # 完播
+                video.play_over(float(params['a_play_time']))
+                # 点赞
+                video.give_a_like()
+                # 评论
+                video.comment()
+            video.next_video()
+        print("刷推荐结束")
+    except Exception as e:
+        print(e,'error')
 
 
 # 刷视频开始
@@ -91,7 +101,7 @@ def start(*params):
     adb_common.foreach_call('update_input', "com.android.adbkeyboard/.AdbIME")
     # 遍历设备
     for device in adb_common.adb_devices:
-        pool.submit(build_video, device)
+        pool.submit(build_video, device, *params)
 
     # 切换普通输入法
     # adb_common.foreach_call('update_input', "com.sohu.inputmethod.sogou.xiaomi/.SogouIME")
